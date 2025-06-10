@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class MatrizQuadrada {
+private:
+    vector<vector<int>> dados;
+    int ordem;
+
+public:
+    MatrizQuadrada(int n) {
+        ordem = n;
+        dados.resize(ordem, vector<int>(ordem));
+    }
+
+    void preencher() {
+        cout << "Digite os elementos da matriz " << ordem << "x" << ordem << ":\n";
+        for (int i = 0; i < ordem; i++) {
+            for (int j = 0; j < ordem; j++) {
+                cout << "Elemento [" << i << "][" << j << "]: ";
+                cin >> dados[i][j];
+            }
+        }
+    }
+
+    int somaDiagonalPrincipal() {
+        int soma = 0;
+        for (int i = 0; i < ordem; i++) {
+            soma += dados[i][i];
+        }
+        return soma;
+    }
+
+    int somaDiagonalSecundaria() {
+        int soma = 0;
+        for (int i = 0; i < ordem; i++) {
+            soma += dados[i][ordem - i - 1];
+        }
+        return soma;
+    }
+};
+
+int main() {
+    int n;
+    cout << "=== SOMA DAS DIAGONAIS DE UMA MATRIZ QUADRADA ===\n";
+    cout << "Digite a ordem da matriz (n): ";
+    cin >> n;
+
+    MatrizQuadrada matriz(n);
+    matriz.preencher();
+
+    int somaPrincipal = matriz.somaDiagonalPrincipal();
+    int somaSecundaria = matriz.somaDiagonalSecundaria();
+
+    cout << "\nSoma da diagonal principal: " << somaPrincipal << endl;
+    cout << "Soma da diagonal secundária: " << somaSecundaria << endl;
+
+    return 0;
+}
