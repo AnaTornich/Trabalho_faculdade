@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+class Numero {
+private:
+    int valor;
+
+public:
+    void setValor(int v) {
+        valor = v;
+    }
+    void exibirValor() {
+        cout << "Valor armazenado: " << valor << endl;
+        cout << "Endereço (simulado): " << &valor << endl;
+    }
+};
+
+int main() {
+    Numero num;
+
+    int entrada;
+    cout << "Digite um valor inteiro: ";
+    cin >> entrada;
+
+    num.setValor(entrada);
+    num.exibirValor();
+
+    return 0;
+}
