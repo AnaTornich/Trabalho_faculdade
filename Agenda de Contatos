@@ -1,0 +1,102 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Contato {
+private:
+    string nome;
+    string telefone;
+    string email;
+
+public:
+    Contato(string n, string t, string e) : nome(n), telefone(t), email(e) {}
+
+    string getNome() const {
+        return nome;
+    }
+
+    void exibirContato() const {
+        cout << "Nome: " << nome << "\n"
+             << "Telefone: " << telefone << "\n"
+             << "Email: " << email << "\n"
+             << "-------------------------\n";
+    }
+};
+
+int main() {
+    vector<Contato> agenda;
+    const int MAX_CONTATOS = 10;
+    int opcao;
+
+    do {
+        cout << "\n=== AGENDA DE CONTATOS ===\n";
+        cout << "1. Adicionar contato\n";
+        cout << "2. Listar contatos\n";
+        cout << "3. Buscar contato por nome\n";
+        cout << "0. Sair\n";
+        cout << "Escolha uma opção: ";
+        cin >> opcao;
+        cin.ignore();
+
+        if (opcao == 1) {
+            if (agenda.size() >= MAX_CONTATOS) {
+                cout << "Agenda cheia! Não é possível adicionar mais contatos.\n";
+                continue;
+            }
+
+            string nome, telefone, email;
+
+            cout << "Nome: ";
+            getline(cin, nome);
+            cout << "Telefone: ";
+            getline(cin, telefone);
+            cout << "Email: ";
+            getline(cin, email);
+
+            agenda.emplace_back(nome, telefone, email);
+            cout << "Contato adicionado com sucesso!\n";
+
+        } else if (opcao == 2) {
+            if (agenda.empty()) {
+                cout << "Nenhum contato cadastrado.\n";
+            } else {
+                cout << "\n--- Lista de Contatos ---\n";
+                for (const auto& c : agenda) {
+                    c.exibirContato();
+                }
+            }
+
+        } else if (opcao == 3) {
+            if (agenda.empty()) {
+                cout << "Nenhum contato cadastrado.\n";
+                continue;
+            }
+
+            string nomeBusca;
+            cout << "Digite o nome para buscar: ";
+            getline(cin, nomeBusca);
+
+            bool encontrado = false;
+            for (const auto& c : agenda) {
+                if (c.getNome() == nomeBusca) {
+                    cout << "\nContato encontrado:\n";
+                    c.exibirContato();
+                    encontrado = true;
+                    break;
+                }
+            }
+
+            if (!encontrado) {
+                cout << "Contato não encontrado.\n";
+            }
+
+        } else if (opcao != 0) {
+            cout << "Opção inválida.\n";
+        }
+
+    } while (opcao != 0);
+
+    cout << "Encerrando a agenda.\n";
+    return 0;
+}
