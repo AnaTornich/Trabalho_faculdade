@@ -1,0 +1,98 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Funcionario {
+private:
+    string nome;
+    int id;
+    double salario;
+    string departamento;
+
+public:
+    Funcionario(string n, int i, double s, string d)
+        : nome(n), id(i), salario(s), departamento(d) {}
+
+    string getDepartamento() const {
+        return departamento;
+    }
+
+    double getSalario() const {
+        return salario;
+    }
+
+    void exibirDados() const {
+        cout << "ID: " << id << "\n"
+             << "Nome: " << nome << "\n"
+             << "Departamento: " << departamento << "\n"
+             << "Salário: R$ " << salario << "\n"
+             << "-----------------------------\n";
+    }
+};
+
+int main() {
+    vector<Funcionario> funcionarios;
+    int opcao;
+
+    do {
+        cout << "\n=== MENU FUNCIONÁRIOS ===\n";
+        cout << "1. Cadastrar funcionário\n";
+        cout << "2. Listar funcionários\n";
+        cout << "3. Total de salários por departamento\n";
+        cout << "0. Sair\n";
+        cout << "Escolha uma opção: ";
+        cin >> opcao;
+        cin.ignore(); // limpar buffer do cin
+
+        if (opcao == 1) {
+            string nome, departamento;
+            int id;
+            double salario;
+
+            cout << "Nome: ";
+            getline(cin, nome);
+            cout << "ID: ";
+            cin >> id;
+            cout << "Salário: ";
+            cin >> salario;
+            cin.ignore(); // limpar buffer
+            cout << "Departamento: ";
+            getline(cin, departamento);
+
+            funcionarios.emplace_back(nome, id, salario, departamento);
+            cout << "Funcionário cadastrado com sucesso!\n";
+        }
+        else if (opcao == 2) {
+            if (funcionarios.empty()) {
+                cout << "Nenhum funcionário cadastrado.\n";
+            } else {
+                cout << "\n--- Lista de Funcionários ---\n";
+                for (const auto& f : funcionarios) {
+                    f.exibirDados();
+                }
+            }
+        }
+        else if (opcao == 3) {
+            string dep;
+            cout << "Digite o nome do departamento: ";
+            getline(cin, dep);
+
+            double total = 0;
+            for (const auto& f : funcionarios) {
+                if (f.getDepartamento() == dep) {
+                    total += f.getSalario();
+                }
+            }
+
+            cout << "Total de salários no departamento \"" << dep << "\": R$ " << total << "\n";
+        }
+        else if (opcao != 0) {
+            cout << "Opção inválida.\n";
+        }
+
+    } while (opcao != 0);
+
+    cout << "Encerrando o programa.\n";
+    return 0;
+}
