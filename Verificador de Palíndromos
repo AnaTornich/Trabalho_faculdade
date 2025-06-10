@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class VerificadorPalindromo {
+public:
+    bool ehPalindromo(string texto) {
+        string limpo = "";
+        for (char c : texto) {
+            if (isalnum(c)) { // ignora espaços e pontuação
+                limpo += tolower(c);
+            }
+        }
+        string reverso = limpo;
+        reverse(reverso.begin(), reverso.end());
+
+        return limpo == reverso;
+    }
+};
+
+int main() {
+    VerificadorPalindromo verificador;
+    string entrada;
+
+    cout << "=== VERIFICADOR DE PALÍNDROMOS ===\n";
+    cout << "Digite uma palavra ou frase: ";
+    getline(cin, entrada);
+
+    if (verificador.ehPalindromo(entrada)) {
+        cout << "É um palíndromo!" << endl;
+    } else {
+        cout << "Não é um palíndromo." << endl;
+    }
+
+    return 0;
+}
