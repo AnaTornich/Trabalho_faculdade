@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+class CalculadoraFatorial {
+public:
+    unsigned long long fatorial(int n) {
+        if (n == 0 || n == 1)
+            return 1;
+        return n * fatorial(n - 1);
+    }
+};
+
+int main() {
+    CalculadoraFatorial calc;
+    int numero;
+
+    cout << "=== CALCULADORA DE FATORIAL ===\n";
+    cout << "Digite um número inteiro não-negativo: ";
+    cin >> numero;
+
+    if (numero < 0) {
+        cout << "Erro: Número negativo não permitido!" << endl;
+    } else {
+        cout << "Fatorial de " << numero << " é: "
+             << calc.fatorial(numero) << endl;
+    }
+
+    return 0;
+}
